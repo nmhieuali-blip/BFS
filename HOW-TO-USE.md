@@ -1,4 +1,5 @@
 # HOW TO USE — BA AI Framework
+Zipped folder BFS -> import to ChatGPT/Claude project
 
 ---
 
