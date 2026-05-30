@@ -1,145 +1,87 @@
 # Generate User Story Prompt
 
 # Objective
-
-Generate enterprise-grade User Stories based on business requirements.
+Generate enterprise-grade user stories from requirement input with traceable business structure.
 
 ---
 
-# Input
+# Input Variables
 
-Input may include:
-
-- BRD
-- feature request
-- workflow
-- meeting note
-- legacy process
-- verbal requirement
+- `{{requirement_id}}`
+- `{{module_name}}`
+- `{{feature_name}}`
+- `{{business_context}}`
+- `{{actors}}`
+- `{{requirements}}`
+- `{{business_constraints}}`
+- `{{dependencies}}`
 
 ---
 
 # Instructions
 
-Generate User Stories using the following structure.
+Generate one or more user stories using the standard format below.
 
 ---
 
-# Required User Story Format
+# Required Output Structure
 
-## User Story ID
-
-Format:
-
-US-XXX
-
----
-
-## Title
-
-Short business-oriented title.
-
----
+## Story Information
+- Story ID: `US-{{MODULE}}-{{NUMBER}}`
+- Story Title: `[{{MODULE}}] - [ACTION] - [TARGET]`
+- Priority: Critical / High / Medium / Low
 
 ## User Story
-
-Format:
-
-As a [actor]
-I want [goal]
+As a [actor]  
+I want [goal]  
 So that [business value]
 
----
-
 ## Business Goal
-
-Describe measurable business value.
-
----
+Define measurable value.
 
 ## Actors
-
-List all actors involved.
-
----
+List all participating actors/systems.
 
 ## Preconditions
-
-List required conditions before flow starts.
-
----
+List required states before flow starts.
 
 ## Main Flow
-
 Step-by-step business flow.
 
----
-
 ## Alternative Flow
+Include branching scenarios.
 
-List exception or alternate scenarios.
-
----
+## Exception Flow
+Include failure and rejection scenarios.
 
 ## Postconditions
-
-Expected state after successful completion.
-
----
+Describe expected final states.
 
 ## Business Rules
-
-List all business rules related to this story.
-
----
+List linked IDs: `BR-{{MODULE}}-{{NUMBER}}`
 
 ## Dependencies
+List systems/APIs/services/approvals.
 
-List:
-
-- external systems
-- APIs
-- services
-- approvals
-- integrations
+## Assumptions and Open Questions
+If unclear, use:
+`NEED_CLARIFICATION: <question>`
 
 ---
 
-## Assumptions
+# Quality Rules
 
-Explicitly list assumptions.
-
-If unclear:
-
-NEED_CLARIFICATION
-
----
-
-# Validation Checklist
-
-Validate:
-
-- actor exists
-- business value is measurable
-- flow is complete
-- exceptions included
-- rules are testable
-- dependencies identified
-- terminology consistent
+- Do not mix implementation detail with business intent.
+- Do not invent missing business rules.
+- Ensure each flow step has clear actor/system responsibility.
+- Ensure terminology matches glossary.
 
 ---
 
-# Important Rules
+# Traceability Rule
 
-Do not:
+Include a short mapping snippet:
 
-- mix technical implementation with business requirement
-- invent hidden business logic
-- skip unhappy path
-- generate vague acceptance behavior
-
----
-
-# Output Format
+`{{requirement_id}} -> US-... -> BR-...`
 
 Return markdown only.

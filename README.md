@@ -1,309 +1,179 @@
-# BA AI Framework
+# BA AI Framework (BFS)
 
-AI-assisted Business Analysis Framework for standardized documentation, reusable templates, and AI-driven workflow generation.
+A markdown-first framework that helps Business Analysts and product teams use AI to produce **consistent, traceable, implementation-ready** business analysis artifacts.
 
----
+Instead of ad-hoc prompts every time, the framework standardizes:
 
-# Purpose
-
-This framework is designed to help Business Analysts work more effectively with AI tools such as:
-
-- ChatGPT
-- Claude
-- Cursor
-- Copilot
-
-The goal is to standardize:
-
-- User Story writing
-- Acceptance Criteria
-- Business Flow
-- BPMN
-- Sequence Diagram
-- State Diagram
-- Business Rules
-- AI prompting strategy
+- **Prompts** — bootstrap, generate, review
+- **Standards** — User Story, AC, BPMN, traceability, NFR, security
+- **Templates** — CRUD, approval, integration, notification, reporting
+- **Domain packs** — domain-specific glossaries and business rules (healthcare, insurance, finance)
+- **Quality gates** — DoR/DoD, quality score, validation script
 
 ---
 
-# Core Principles
+## Who is this for?
 
-## AI-First
-
-Documents are written for:
-- humans
-- AI agents
-
-All standards and templates should be:
-- structured
-- reusable
-- machine-readable
-- markdown-first
+- **Business Analyst** — write stories, AC, and flow diagrams quickly and consistently
+- **Product Owner / PM** — review artifact quality before grooming
+- **QA** — trace requirement → AC → test case
+- **Engineering** — receive specs with clear flows, rules, permissions, and integrations
 
 ---
 
-## Consistency
+## Quick start (5 minutes)
 
-All BA outputs should follow:
-- same terminology
-- same formatting
-- same quality standard
+### 1. Attach context to your AI chat
 
----
+In Cursor or another AI chat tool, attach these files:
 
-## Reusability
+| File | Purpose |
+|---|---|
+| [`prompts/AI-BA-BOOTSTRAP.md`](prompts/AI-BA-BOOTSTRAP.md) | Set role and operating rules |
+| [`standards/USER-STORY-STANDARD.md`](standards/USER-STORY-STANDARD.md) | User story standard |
+| [`standards/AC-STANDARD.md`](standards/AC-STANDARD.md) | Acceptance criteria standard |
+| [`glossary/BUSINESS-GLOSSARY.md`](glossary/BUSINESS-GLOSSARY.md) | Shared terminology |
+| Domain pack (optional) | Example: [`domain-packs/healthcare/`](domain-packs/healthcare/) |
 
-Templates and prompts should be reusable across:
-- projects
-- modules
-- domains
-- teams
-
----
-
-# Folder Structure
+### 2. Run the bootstrap prompt
 
 ```txt
-ba-ai-framework/
-│
-├── README.md
-│
-├── standards/
-├── templates/
-├── prompts/
-├── diagrams/
-├── business-rules/
-├── glossary/
-└── examples/
+Use attached BA AI Framework standards.
+
+Generate business analysis documents following the framework rules.
 ```
 
----
-
-# Folder Overview
-
-## standards/
-
-Defines writing standards and formatting rules.
-
-Examples:
-- User Story Standard
-- AC Standard
-- BPMN Standard
-- Sequence Diagram Standard
-
----
-
-## templates/
-
-Reusable markdown templates for common business flows.
-
-Examples:
-- CRUD Flow
-- Approval Flow
-- Integration Flow
-- Notification Flow
-
----
-
-## prompts/
-
-AI prompts for:
-- generation
-- review
-- refinement
-- edge-case analysis
-
-Examples:
-- Generate User Story
-- Generate AC
-- Review Edge Cases
-
----
-
-## diagrams/
-
-Mermaid diagram examples and standards.
-
-Examples:
-- BPMN
-- Sequence Diagram
-- State Machine
-- Activity Flow
-
----
-
-## business-rules/
-
-Reusable business rule libraries.
-
-Examples:
-- Authentication Rules
-- Insurance Rules
-- Payment Rules
-
----
-
-## glossary/
-
-Business terminology and domain definitions.
-
----
-
-## examples/
-
-Real examples and reference outputs.
-
----
-
-# Recommended Workflow
+### 3. Send a task prompt for your feature
 
 ```txt
-Requirement
-    ↓
-AI Bootstrap Prompt
-    ↓
-Generate User Story
-    ↓
-Generate AC
-    ↓
-Generate BPMN
-    ↓
-Review Edge Cases
-    ↓
-Finalize Documentation
-```
+# Context
+Healthcare Platform
 
----
+# Task
+Generate business analysis documentation
 
-# Recommended AI Tools
+# Actors
+- Admin
+- Staff
 
-## Claude
+# Requirements
+- Create invoice
+- Validate payment
+- Support approval workflow
 
-Recommended for:
-- long context
-- structured analysis
-- large documentation generation
+# Rules
+- Use Mermaid
+- Follow RBAC
+- Include audit logging
 
----
-
-## ChatGPT
-
-Recommended for:
-- refinement
-- brainstorming
-- diagram generation
-- requirement clarification
-
----
-
-# Markdown Standard
-
-All documents should:
-- use markdown
-- avoid heavy formatting
-- support copy-paste into AI tools
-- support Git versioning
-
----
-
-# Mermaid Standard
-
-All diagrams should use Mermaid syntax whenever possible.
-
-Example:
-
-```mermaid
-sequenceDiagram
-    Frontend->>Gateway: Submit Request
-    Gateway->>Service: Validate
-    Service-->>Gateway: Response
-```
-
----
-
-# AI Usage Rules
-
-## Always provide context
-
-When prompting AI:
-- attach standards
-- attach glossary
-- attach business rules
-
----
-
-## Prefer structured prompts
-
-Good:
-
-```txt
-Generate:
+# Expected Output
 - User Story
-- Acceptance Criteria
+- AC
 - BPMN
+- Sequence Diagram
 - Edge Cases
 ```
 
-Bad:
+### 4. Review and validate
 
-```txt
-Help me analyze this feature
+- Use [`prompts/REVIEW-BUSINESS-FLOW.md`](prompts/REVIEW-BUSINESS-FLOW.md) and [`prompts/REVIEW-EDGE-CASE.md`](prompts/REVIEW-EDGE-CASE.md)
+- Run validation: `./scripts/validate-ba-artifact.sh path/to/artifact.md`
+
+Step-by-step details: see [`HOW-TO-USE.md`](HOW-TO-USE.md).
+
+---
+
+## Workflow overview
+
+```
+Bootstrap Prompt  →  Feature Prompt  →  Review Prompt  →  Validate  →  Finalize
+     ↑                      ↑                  ↑
+ AI-BA-BOOTSTRAP      GENERATE-*.md       REVIEW-*.md
+ + standards           + templates         + quality score
+ + glossary            + domain pack
+```
+
+Practical examples and prompt tips: [`CASE-STUDY.md`](CASE-STUDY.md).
+
+---
+
+## Repository structure
+
+```
+BFS/
+├── prompts/           # Prompt playbook (bootstrap, generate, review)
+├── standards/         # Quality standards and ID conventions
+├── templates/         # Flow templates by business pattern
+├── domain-packs/      # Glossary + rules + samples by domain
+├── business-rules/    # Shared rules (auth, payment, notification...)
+├── glossary/          # Global business glossary
+├── examples/          # Complete sample artifacts
+├── diagrams/          # Mermaid examples (BPMN, sequence, state)
+├── scripts/           # Artifact validation tools
+├── HOW-TO-USE.md      # Detailed usage guide
+└── CASE-STUDY.md      # Workflow and practical prompt examples
 ```
 
 ---
 
-# Framework Phases
+## Sample artifacts
 
-## Phase 1
-Foundation Standards
-
-## Phase 2
-Reusable Templates
-
-## Phase 3
-AI Prompt Framework
-
-## Phase 4
-Diagram Standards
-
-## Phase 5
-Business Rules Library
-
-## Phase 6
-Examples Library
+| File | Content |
+|---|---|
+| [`examples/SAMPLE-BA-DOCUMENT.md`](examples/SAMPLE-BA-DOCUMENT.md) | Full BA document (story, AC, BPMN, sequence, state, edge cases) |
+| [`examples/SAMPLE-FULL-FLOW.md`](examples/SAMPLE-FULL-FLOW.md) | End-to-end flow |
+| [`examples/SAMPLE-USER-STORY.md`](examples/SAMPLE-USER-STORY.md) | Sample user story |
+| [`examples/SAMPLE-BPMN.md`](examples/SAMPLE-BPMN.md) | Sample BPMN |
+| [`examples/SAMPLE-SEQUENCE.md`](examples/SAMPLE-SEQUENCE.md) | Sample sequence diagram |
 
 ---
 
-# Target Outcome
+## Mandatory traceability chain
 
-The framework aims to create:
+Every feature must map through:
 
-- consistent BA outputs
-- AI-assisted analysis workflow
-- reusable documentation system
-- faster grooming and refinement
-- better collaboration between BA, QA, Dev, and PM
+```
+Requirement → User Story → Business Rule → AC → Test Case → API/Event Contract
+```
 
----
-
-# Future Direction
-
-Possible future enhancements:
-
-- AI Knowledge Base
-- RAG integration
-- Vector Search
-- Internal BA Copilot
-- Automated Requirement Review
+ID conventions: `REQ-`, `US-`, `BR-`, `AC-`, `TC-`, `API-`, `EVT-` — see [`standards/TRACEABILITY-STANDARD.md`](standards/TRACEABILITY-STANDARD.md).
 
 ---
 
-# Notes
+## Quality gates
 
-This framework is intentionally lightweight and markdown-first.
+| Stage | Minimum score | Reference |
+|---|---|---|
+| Draft review | ≥ 12/20 | [`standards/QUALITY-SCORE-STANDARD.md`](standards/QUALITY-SCORE-STANDARD.md) |
+| Grooming ready | ≥ 15/20 | [`standards/DOR-DOD-STANDARD.md`](standards/DOR-DOD-STANDARD.md) |
+| Implementation ready | ≥ 17/20 | [`templates/REVIEW-REPORT-TEMPLATE.md`](templates/REVIEW-REPORT-TEMPLATE.md) |
 
-The goal is:
-- simplicity
-- scalability
-- AI compatibility
-- practical daily usage
+---
+
+## Domain packs
+
+Attach a domain pack when working in a specific industry:
+
+| Domain | Glossary | Rules | Sample |
+|---|---|---|---|
+| Healthcare | [`DOMAIN-GLOSSARY.md`](domain-packs/healthcare/DOMAIN-GLOSSARY.md) | [`DOMAIN-RULES.md`](domain-packs/healthcare/DOMAIN-RULES.md) | [`SAMPLE-REQUIREMENT.md`](domain-packs/healthcare/SAMPLE-REQUIREMENT.md) |
+| Insurance | [`DOMAIN-GLOSSARY.md`](domain-packs/insurance/DOMAIN-GLOSSARY.md) | [`DOMAIN-RULES.md`](domain-packs/insurance/DOMAIN-RULES.md) | [`SAMPLE-REQUIREMENT.md`](domain-packs/insurance/SAMPLE-REQUIREMENT.md) |
+| Finance | [`DOMAIN-GLOSSARY.md`](domain-packs/finance/DOMAIN-GLOSSARY.md) | [`DOMAIN-RULES.md`](domain-packs/finance/DOMAIN-RULES.md) | [`SAMPLE-REQUIREMENT.md`](domain-packs/finance/SAMPLE-REQUIREMENT.md) |
+
+---
+
+## Operating principles
+
+1. **Do not invent business logic** — if information is missing, output `NEED_CLARIFICATION`
+2. **Markdown-first** — structured output that is easy to review and version control
+3. **Traceability** — every AC links to a BR, every story links to a requirement
+4. **Full coverage** — happy path, exceptions, permissions, validation, timeout/retry, concurrency
+5. **Consistent terminology** — use the glossary; do not introduce new terms without reason
+
+---
+
+## Related documentation
+
+- [HOW-TO-USE.md](HOW-TO-USE.md) — detailed step-by-step guide
+- [CASE-STUDY.md](CASE-STUDY.md) — 3-level workflow and standard prompt format
+- [domain-packs/README.md](domain-packs/README.md) — how to use domain packs

@@ -1,118 +1,70 @@
 # Review Business Flow Prompt
 
 # Objective
-
-Review business workflow quality and consistency.
+Perform a structured quality review of business workflow artifacts before grooming or implementation.
 
 ---
 
-# Instructions
+# Input Variables
 
-Act as:
-
-- Senior Business Analyst
-- Solution Architect
-- QA Reviewer
-
-Review the workflow comprehensively.
+- `{{artifact_name}}`
+- `{{artifact_version}}`
+- `{{flow_content}}`
+- `{{business_rules}}`
+- `{{acceptance_criteria}}`
+- `{{dependencies}}`
+- `{{target_quality_stage}}` (Draft / Grooming / Implementation)
 
 ---
 
 # Review Scope
 
-## Flow Completeness
-
 Validate:
 
-- all actors identified
-- all steps connected
-- no missing transition
-- no ambiguous action
-
----
-
-## Business Logic
-
-Validate:
-
-- rules consistent
-- approvals valid
-- state transitions valid
-- exception handling exists
-
----
-
-## Security Review
-
-Validate:
-
-- RBAC enforcement
-- permission boundaries
-- audit logging
-- sensitive action validation
-
----
-
-## Integration Review
-
-Validate:
-
-- external dependency identified
-- retry logic exists
-- timeout handling exists
-- fallback behavior defined
-
----
-
-## Data Review
-
-Validate:
-
-- required fields defined
-- validation rules exist
-- synchronization impact identified
+1. Flow completeness and transition integrity
+2. Business rule consistency
+3. Security and RBAC boundaries
+4. Integration resilience (timeout/retry/fallback)
+5. Data validation and contract coverage
+6. Traceability completeness
+7. Diagram/text consistency
 
 ---
 
 # Output Format
 
 ## Review Summary
-
-PASS / FAIL / NEED_IMPROVEMENT
-
----
+- Status: PASS / NEED_IMPROVEMENT / FAIL
+- Quality Score: `X/20`
+- Stage Readiness: Draft / Grooming / Implementation
 
 ## Findings
-
-### Finding 1
-
+### Finding {{NUMBER}}
 Type:
+Severity: LOW / MEDIUM / HIGH / CRITICAL
 Description:
 Impact:
 Recommendation:
+Owner:
+
+## Mandatory Actions Before Next Stage
+- Action 1
+- Action 2
+
+## Traceability Check
+- Requirement -> Story
+- Story -> BR
+- BR -> AC
+- AC -> Test
 
 ---
 
-# Severity Levels
+# Review Rules
 
-- LOW
-- MEDIUM
-- HIGH
-- CRITICAL
+- Do not provide generic feedback.
+- Include rationale and business impact for each finding.
+- Explicitly call out critical blockers.
 
----
+If required artifacts are missing:
 
-# Important Rules
-
-Do not:
-
-- provide vague recommendations
-- skip negative scenarios
-- ignore operational risks
-- ignore audit requirements
-
-Always explain:
-
-- why issue matters
-- potential business impact
-- recommended mitigation
+`NEED_CLARIFICATION: REVIEW_INPUT_INCOMPLETE`

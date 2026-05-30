@@ -1,104 +1,53 @@
 # Review Edge Case Prompt
 
 # Objective
-
-Review business flows and detect missing edge cases.
-
----
-
-# Instructions
-
-Analyze provided requirement or workflow.
-
-Identify:
-
-- missing edge cases
-- failure scenarios
-- race conditions
-- inconsistent behavior
-- security gaps
-- invalid assumptions
+Identify non-obvious edge cases and operational risks in the business workflow.
 
 ---
 
-# Required Review Areas
+# Input Variables
 
-## Validation
-
-Check:
-
-- null data
-- invalid format
-- duplicated request
-- stale data
-- concurrent update
+- `{{artifact_name}}`
+- `{{flow_summary}}`
+- `{{actors_and_roles}}`
+- `{{business_rules}}`
+- `{{integration_dependencies}}`
+- `{{known_constraints}}`
 
 ---
 
-## Permission
+# Review Scope
 
-Check:
+Analyze risks across:
 
-- unauthorized access
-- role escalation
-- invalid actor action
-
----
-
-## Integration
-
-Check:
-
-- timeout
-- retry duplication
-- partial failure
-- downstream service unavailable
-
----
-
-## Workflow
-
-Check:
-
-- dead-end flow
-- missing rejection path
-- invalid transition
-- inconsistent state
-
----
-
-## Data Integrity
-
-Check:
-
-- duplicate records
-- rollback failure
-- inconsistent synchronization
+- validation and input integrity
+- permission and role boundaries
+- integration timeout/retry/fallback
+- workflow transition consistency
+- data integrity and synchronization
+- concurrency and race conditions
 
 ---
 
 # Output Format
 
-## Edge Case
-
+## Edge Case {{NUMBER}}
 ### Scenario
-Description
-
-### Risk
-Impact description
-
+### Trigger
+### Risk / Business Impact
 ### Recommendation
-Suggested improvement
-
-### Severity
-LOW / MEDIUM / HIGH / CRITICAL
+### Severity (LOW / MEDIUM / HIGH / CRITICAL)
+### Linked Artifact IDs (US/BR/AC)
 
 ---
 
-# Important Rules
+# Review Rules
 
-Do not:
+- Prioritize non-obvious cases over basic checks.
+- Include at least one concurrency-related case if integration or approvals exist.
+- Include concrete mitigation recommendations.
+- Link each finding to impacted artifact IDs.
 
-- generate generic comments
-- repeat obvious validations
-- ignore concurrency scenarios
+If insufficient context:
+
+`NEED_CLARIFICATION: EDGE_CASE_CONTEXT_GAP`

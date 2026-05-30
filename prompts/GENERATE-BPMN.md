@@ -1,104 +1,73 @@
 # Generate BPMN Prompt
 
 # Objective
+Generate BPMN-style workflow artifacts that are complete, reviewable, and consistent with business rules.
 
-Generate BPMN-style business workflow descriptions.
+---
+
+# Input Variables
+
+- `{{process_name}}`
+- `{{actors}}`
+- `{{systems}}`
+- `{{preconditions}}`
+- `{{main_flow_requirements}}`
+- `{{decision_rules}}`
+- `{{exception_scenarios}}`
+- `{{integration_points}}`
 
 ---
 
 # Instructions
 
-Generate structured BPMN flow representation.
+Produce both:
+
+1. Structured textual process breakdown
+2. Mermaid diagram representation
 
 ---
 
-# Required BPMN Components
+# Required Components
 
-Include:
-
-- actors
 - start event
-- end event
-- tasks
-- gateways
-- exception flow
-- approval flow
-- system actions
+- end events (success + rejection/failure)
+- tasks with actor ownership
+- gateways with explicit conditions
+- approval/rejection branch (if applicable)
+- exception and retry/timeout handling
+- postconditions
 
 ---
 
-# Required Structure
+# Required Output Structure
 
 ## Process Name
-
-## Actors
-
+## Actors and Swimlanes
 ## Preconditions
-
-## Main Flow
-
-### Step 1
-Actor:
-Action:
-System Response:
-
----
-
-## Decision Gateway
-
-Condition:
-Yes Flow:
-No Flow:
-
----
-
+## Main Flow Steps
+## Decision Gateways
 ## Exception Flow
-
-List all failure scenarios.
-
----
-
 ## Postconditions
-
-Expected final states.
+## Mermaid Diagram
 
 ---
 
 # Validation Rules
 
-Validate:
+Ensure:
 
 - all branches terminate
-- no orphan flow
-- approval path complete
-- rejection path exists
-- rollback logic exists if needed
+- no dead-end/orphan step
+- rejection path exists where needed
+- retry and timeout behavior is explicit
+- transitions are logically valid
+
+If any branch is unclear:
+
+`NEED_CLARIFICATION: FLOW_GAP`
 
 ---
 
-# Important Rules
+# Output Rule
 
-Do not:
-
-- skip system response
-- skip validation flow
-- mix technical code logic
-- create impossible transitions
-
----
-
-# Edge Cases
-
-Always consider:
-
-- retry
-- timeout
-- duplicate submission
-- concurrent update
-- integration failure
-
----
-
-# Output Format
-
-Markdown only.
+Return markdown only.

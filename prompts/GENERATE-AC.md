@@ -1,102 +1,79 @@
 # Generate Acceptance Criteria Prompt
 
 # Objective
+Generate testable, traceable acceptance criteria from user stories and business rules.
 
-Generate testable Acceptance Criteria from User Stories.
+---
+
+# Input Variables
+
+- `{{story_id}}`
+- `{{module_name}}`
+- `{{actors}}`
+- `{{business_rules}}`
+- `{{main_flow_summary}}`
+- `{{system_constraints}}`
+- `{{integration_dependencies}}`
 
 ---
 
 # Instructions
 
-Generate Acceptance Criteria using Gherkin format.
+Generate AC using strict Gherkin style.
 
 ---
 
-# Acceptance Criteria Standard
+# Output Structure
 
-Format:
+For each criterion:
 
-Given
-When
-Then
+## AC-{{MODULE}}-{{NUMBER}}
+Related BR: `BR-{{MODULE}}-{{NUMBER}}`
+Given ...
+When ...
+Then ...
 
 ---
 
-# Required Coverage
+# Mandatory Coverage
 
-Generate AC for:
+Include criteria for:
 
 - happy path
-- validation failure
-- permission validation
-- invalid input
-- timeout scenario
-- duplicate action prevention
-- retry handling
-- edge case
+- required field validation
+- invalid format/data type
+- permission denial
+- duplicate request prevention
+- timeout and retry behavior
+- integration failure fallback
+- concurrency edge case
 
 ---
 
-# Rules
-
-Acceptance Criteria must be:
-
-- testable
-- measurable
-- implementation-independent
-- traceable to business rule
-
----
-
-# Validation Requirements
+# Quality Rules
 
 Each AC must include:
 
-- actor
-- trigger
+- actor/role
+- trigger action
 - system response
 - expected result
-
----
-
-# Error Handling
-
-Include AC for:
-
-- invalid data
-- missing data
-- unauthorized access
-- duplicated request
-- integration failure
-
----
-
-# Important Rules
+- observable outcome
 
 Do not:
 
-- generate vague AC
-- combine multiple validations into one AC
-- use ambiguous wording
-
-Avoid:
-
-- "system works correctly"
-- "user-friendly"
-- "fast enough"
+- merge unrelated checks in one AC
+- use vague wording
+- include implementation internals unless required by policy
 
 ---
 
-# Output Format
+# Traceability Rule
 
-## AC-01
+At the end, provide:
 
-Given
-When
-Then
+`AC -> BR mapping summary`
 
-## AC-02
+If BR linkage is missing:
 
-Given
-When
-Then
+`NEED_CLARIFICATION: MISSING_BR_LINK`
